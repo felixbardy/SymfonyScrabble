@@ -12,10 +12,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
-    name: 'app:scrabble',
+    name: 'app:scrabble:demo',
     description: 'scrabble game',
 )]
-class ScrabbleCommand extends Command
+class ScrabbleDemoCommand extends Command
 {
     public function __construct(private string $projectDir)
     {
