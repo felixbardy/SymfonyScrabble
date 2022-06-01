@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Scrabble!{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-6 card shadow border rounded-3 p-4">
+            <!---->
+            <div class="row">
+                <div class="col-12">
+                    <h3>Here is your input:</h3>
+                    <table class="table">
+                    <tbody>
+                    <tr>
+                    {% for letter in input %}
+                        <td class="text-center m-5">
+                            <h5>
+                                {{ letter|upper }}
+                            </h5>
+                        </td>
+                    {% endfor %}
+                    </tr>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h3>Find the highest scoring word!</h3>
+                    {{ submit_word_form }}
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <h2>Best words of yesterday:</h2>
+        </div>
+    </div>
+{% endblock %}
