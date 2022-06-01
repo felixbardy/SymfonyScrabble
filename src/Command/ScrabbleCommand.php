@@ -65,7 +65,7 @@ class ScrabbleCommand extends Command
 
         // start here
 
-        //exécution: ~84ms (dont ~80ms en filtrage)
+        //exécution: ~52ms (dont ~49ms en filtrage)
         
         // 1• Filtrage
         $filtrage_start = microtime(true);
@@ -99,7 +99,6 @@ class ScrabbleCommand extends Command
         $calcul_start = $filtrage_end = microtime(true);
 
         // 2• Calcul des scores
-        /* FONCTIONNELLE */
         // Fonction d'accumultaion du score
         $accumulate_score = function ($carry, $lettre) use ($letters) {
             return $carry + $letters[$lettre];
