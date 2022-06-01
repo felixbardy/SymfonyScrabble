@@ -32,12 +32,57 @@
                     </div>
                 </div>
             </div>
-            <div class="row  card shadow border rounded-3 p-4">
+            <div class="row card shadow border rounded-3 p-4">
                 <h3>Tentatives:</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Mot</th>
+                            <th scope="col">Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for word in tries %}
+                            <tr>
+                                <td>{{ word.0 }}</td>
+                                <td>{{ word.1 }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-6 card shadow border rounded-3 p-4">
             <h2>Meilleurs mots d'hier:</h2>
+            <table class="table">
+            <tbody>
+            <tr>
+            {% for letter in previous_input %}
+                <td class="text-center m-5">
+                    <h5>
+                        {{ letter|upper }}
+                    </h5>
+                </td>
+            {% endfor %}
+            </tr>
+            </tbody>
+            </table>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Mot</th>
+                        <th scope="col">Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for word in previous_words %}
+                        <tr>
+                            <td>{{ word.0 }}</td>
+                            <td>{{ word.1 }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 {% endblock %}
