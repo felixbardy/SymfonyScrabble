@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\GameGenerator;
+use App\ScrabbleGame;
 use App\Repository\InputListRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -20,7 +20,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class ScrabbleDemoCommand extends Command
 {
     public function __construct(
-        private GameGenerator $gameGenerator,
+        private ScrabbleGame $scrabbleGame,
         private InputListRepository $inputListRepository
     )
     {
@@ -37,7 +37,7 @@ class ScrabbleDemoCommand extends Command
         
         $timeStart = microtime(true);
 
-        $rows = $this->gameGenerator->generateSolution($input);
+        $rows = $this->scrabbleGame->generateSolution($input);
 
         $io->section('Lettres');
         $io->writeln($input);

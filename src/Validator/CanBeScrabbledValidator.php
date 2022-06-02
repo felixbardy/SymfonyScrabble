@@ -2,7 +2,7 @@
 
 namespace App\Validator;
 
-use App\GameGenerator;
+use App\ScrabbleGame;
 use App\Repository\InputListRepository;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -13,7 +13,7 @@ class CanBeScrabbledValidator extends ConstraintValidator
 {
 
     public function __construct(
-        private GameGenerator $gameGenerator
+        private ScrabbleGame $scrabbleGame
     )
     {}
 
@@ -33,7 +33,7 @@ class CanBeScrabbledValidator extends ConstraintValidator
             throw new UnexpectedValueException($value, 'string');
         }
         
-        if (!$this->gameGenerator->isValid($value, $constraint->input)) {
+        if (!$this->scrabbleGame->isValid($value, $constraint->input)) {
             $this->context->buildViolation($constraint->message)
                  ->setParameter('{{ string }}', $value)
                  ->addViolation()

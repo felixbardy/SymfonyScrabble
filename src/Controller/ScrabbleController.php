@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\InputList;
 use App\Form\WordSubmissionFormType;
-use App\GameGenerator;
+use App\ScrabbleGame;
 use App\Repository\InputListRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -18,7 +18,7 @@ class ScrabbleController extends AbstractController
     public function __construct(
         private Environment $twig,
         private InputListRepository $inputListRepository,
-        private GameGenerator $gameGenerator
+        private ScrabbleGame $scrabbleGame
     )
     {}
 
@@ -34,7 +34,7 @@ class ScrabbleController extends AbstractController
         
         // S'il n'existe pas, on en génère un
         if (null === $inputList) {
-            $inputList = $this->gameGenerator->generateGame(7);
+            $inputList = $this->scrabbleGame->generateGame(7);
             $this->inputListRepository->add($inputList, true);
         }
 
@@ -48,7 +48,7 @@ class ScrabbleController extends AbstractController
         // S'il n'existe pas, le set de mots affiché sera vide
         if (null !== $previousInputList) {
             $previousInput = $previousInputList->getInputList();
-            $words = $this->gameGenerator->generateSolution($previousInput);
+            $words = $this->scrabbleGame->generateSolution($previousInput);
         }
             
         // On récupère le set de lettres
@@ -80,12 +80,12 @@ class ScrabbleController extends AbstractController
             // Si on a pas encore enregistré d'essais, initialiser le champ
             if (null === $session->get('tries')) {
                 $session->set('tries', [
-                    [$word, $this->gameGenerator->computeScore($word,$input)]
+                    [$word, $this->scrabbleGame->computeScore($word,$input)]
                 ]);
             }
             // Sinon, ajouter notre essai et trier le tableau
             else {
-                $tries[] = [$word, $this->gameGenerator->computeScore($word,$input)];
+                $tries[] = [$word, $this->scrabbleGame->computeScore($word,$input)];
                 usort($tries, fn ($try1, $try2) => $try2[1] - $try1[1]);
                 $session->set('tries', $tries);
             }

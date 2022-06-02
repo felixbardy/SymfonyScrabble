@@ -3,7 +3,7 @@
 namespace App\Command;
 
 use App\Entity\InputList;
-use App\GameGenerator;
+use App\ScrabbleGame;
 use App\Repository\InputListRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -19,7 +19,7 @@ class ScrabbleRegenerateCommand extends Command
 {
     public function __construct(
         private InputListRepository $inputListRepository,
-        private GameGenerator $gameGenerator
+        private ScrabbleGame $scrabbleGame
     )
     {
         parent::__construct();
@@ -34,7 +34,7 @@ class ScrabbleRegenerateCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $this->inputListRepository->add($this->gameGenerator->generateGame(7), true);
+        $this->inputListRepository->add($this->scrabbleGame->generateGame(7, $io), true);
 
         return Command::SUCCESS;
     }

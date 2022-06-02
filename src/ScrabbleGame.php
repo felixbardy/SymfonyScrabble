@@ -3,8 +3,10 @@
 namespace App;
 
 use App\Entity\InputList;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
-class GameGenerator
+class ScrabbleGame
 {
 
     private array $letters = [
@@ -42,22 +44,22 @@ class GameGenerator
     )
     {}
 
-    public function generateGame(int $charCount): InputList
+    public function generateGame(int $charCount, SymfonyStyle $io = null): InputList
     {
-        $vowels = "aeiouy";
-        $consonants = "zrtpqsdfghjklmwxcvbn";
-        $vowelsSize = 6;
-        $consonantsSize = 20;
-        $randomString = '';
-        for ($i = 0; $i < $charCount; $i+=1) {
-            if (rand(0,1)) {
-                $randomString .= $vowels[rand(0,$vowelsSize-1)];
-            } else {
-                $randomString .= $consonants[rand(0,$consonantsSize-1)];
-            }
-        }
+        $mots = file($this->projectDir . '/data/mots.txt', FILE_IGNORE_NEW_LINES);
+
+        $longWords = array_filter($mots, fn ($mot) => strlen($mot) >= 7);
+
+        $word = $longWords[array_rand($longWords)];
+        $io->success(sprintf('Le mot "%s" a ét tiré aléatoirement', $word));
+
+        $word = str_split($word);
+        shuffle($word);
+        $word = array_reduce($word, fn ($string, $letter) => $string . $letter, '');
+        
+
         $inputList = new InputList();
-        $inputList->setInputList($randomString);
+        $inputList->setInputList($word);
         return $inputList;
     }
 
