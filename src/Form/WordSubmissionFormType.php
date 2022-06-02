@@ -17,7 +17,7 @@ class WordSubmissionFormType extends AbstractType
     {}
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $scrabbleInput = $this->inputListRepository->findOneBy([], ['id' => 'DESC'])->getInputList();
+        $scrabbleInput = $this->inputListRepository->findOneBy([], ['id' => 'DESC'])->getInput();
 
         $builder
             ->add('word', null, [

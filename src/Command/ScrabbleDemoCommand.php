@@ -33,7 +33,7 @@ class ScrabbleDemoCommand extends Command
         
         $input = $this->inputListRepository
                       ->findOneBy([], ['id' => 'DESC'])
-                      ->getInputList();
+                      ->getInput();
         
         $timeStart = microtime(true);
 
