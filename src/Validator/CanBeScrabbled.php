@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class CanBeScrabbled extends Constraint
 {
-    public $message = 'The string {{ string }} cannot be formed out of the current Scrabble input.';
+    public $message = 'Le mot "{{ string }}" ne peut pas être formé par les lettres disponibles!';
     public $input;
 
     public function getRequiredOptions()

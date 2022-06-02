@@ -47,12 +47,12 @@ class ScrabbleController extends AbstractController
         $previousInput = '';
         // S'il n'existe pas, le set de mots affiché sera vide
         if (null !== $previousInputList) {
-            $previousInput = $previousInputList->getInputList();
+            $previousInput = $previousInputList->getInput();
             $words = $this->scrabbleGame->generateSolution($previousInput);
         }
             
         // On récupère le set de lettres
-        $input = $inputList->getInputList();
+        $input = $inputList->getInput();
 
         // On récupère la session
         $session = $request->getSession();

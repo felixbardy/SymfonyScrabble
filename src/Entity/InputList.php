@@ -14,21 +14,21 @@ class InputList
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $input_list;
+    private $input;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getInputList(): ?string
+    public function getInput(): ?string
     {
-        return $this->input_list;
+        return $this->input;
     }
 
-    public function setInputList(string $input_list): self
+    public function setInput(string $input): self
     {
-        $this->input_list = $input_list;
+        $this->input = $input;
 
         return $this;
     }

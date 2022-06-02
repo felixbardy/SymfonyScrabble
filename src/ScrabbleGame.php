@@ -78,7 +78,7 @@ class ScrabbleGame
         
 
         $inputList = new InputList();
-        $inputList->setInputList($word);
+        $inputList->setInput($word);
         return $inputList;
     }
 
