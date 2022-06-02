@@ -86,7 +86,7 @@ class ScrabbleGame
     {
         $score = 0;
         foreach (str_split($word) as $letter) {
-            $score += $this->letters[$letter];
+            $score += $this::$letters[$letter];
         }
         return $score;
     }
@@ -155,7 +155,7 @@ class ScrabbleGame
         // 2• Calcul des scores
         // Fonction d'accumultaion du score
         $accumulate_score = function ($carry, $lettre) {
-            return $carry + $this->letters[$lettre];
+            return $carry + $this::$letters[$lettre];
         };
 
         // Génération de la table des scores
