@@ -54,7 +54,7 @@ class ScrabbleController extends AbstractController
         // S'il n'existe pas, le set de mots affiché sera vide
         if (null !== $previousInputList) {
             $previousInput = $previousInputList->getInput();
-            $words = $this->scrabbleGame->generateSolution($previousInput);
+            $words = $previousInputList->getScores();
         }
             
         // On récupère le set de lettres
@@ -109,11 +109,5 @@ class ScrabbleController extends AbstractController
         );
 
         return $response;
-    }
-
-    private function checkWordValidity(string $word): bool
-    {
-        //TODO Vérifier la validité à l'aide du set de lettres dans la bdd
-        return true;
     }
 }
