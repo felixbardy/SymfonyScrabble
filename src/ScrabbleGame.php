@@ -9,7 +9,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class ScrabbleGame
 {
 
-    private array $letters = [
+    private static array $letters = [
         'a' => 1,
         'b' => 3,
         'c' => 3,
@@ -39,6 +39,17 @@ class ScrabbleGame
         '-' => 0,
     ];
 
+    private static array $normalizeChars = array(
+        'Š'=>'S', 'š'=>'s', 'Ð'=>'Dj','Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A',
+        'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E', 'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I',
+        'Ï'=>'I', 'Ñ'=>'N', 'Ń'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U', 'Ú'=>'U',
+        'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss','à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a',
+        'å'=>'a', 'æ'=>'a', 'ç'=>'c', 'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i',
+        'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ń'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o', 'ö'=>'o', 'ø'=>'o', 'ù'=>'u',
+        'ú'=>'u', 'û'=>'u', 'ü'=>'u', 'ý'=>'y', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y', 'ƒ'=>'f',
+        'ă'=>'a', 'î'=>'i', 'â'=>'a', 'ș'=>'s', 'ț'=>'t', 'Ă'=>'A', 'Î'=>'I', 'Â'=>'A', 'Ș'=>'S', 'Ț'=>'T',
+    );
+
     public function __construct(
         private string $projectDir
     )
@@ -48,10 +59,18 @@ class ScrabbleGame
     {
         $mots = file($this->projectDir . '/data/mots.txt', FILE_IGNORE_NEW_LINES);
 
-        $longWords = array_filter($mots, fn ($mot) => strlen($mot) >= 7);
+        $mots = array_filter($mots, fn ($mot) => strlen($mot) >= 7);
 
-        $word = $longWords[array_rand($longWords)];
-        $io->success(sprintf('Le mot "%s" a ét tiré aléatoirement', $word));
+        $word = $mots[array_rand($mots)];
+
+        if ($io) {
+            $io->success(sprintf(
+                'Le mot "%s" a été tiré aléatoirement parmi %d mots', 
+                $word, count($mots)
+            ));
+        }
+        
+        $word = strtr($word,$this::$normalizeChars);
 
         $word = str_split($word);
         shuffle($word);
