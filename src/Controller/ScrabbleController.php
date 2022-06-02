@@ -21,6 +21,12 @@ class ScrabbleController extends AbstractController
         private ScrabbleGame $scrabbleGame
     )
     {}
+    
+    #[Route('/', name: 'root')]
+    public function redirectToIndex(Request $request): Response
+    {
+        return $this->redirectToRoute('scrabble');
+    }
 
     #[Route('/scrabble', name: 'scrabble')]
     public function index(Request $request): Response
