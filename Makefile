@@ -13,5 +13,5 @@ start:
 stop:
 	@echo "••• Stopping Symfony server..."
 	symfony server:stop
-	@echo "••• Stpping Docker containers..."
+	@echo "••• Stopping Docker containers..."
 	docker-compose stop
